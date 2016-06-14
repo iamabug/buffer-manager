@@ -5,8 +5,8 @@
 #include "init.h"
 
 //two arrays to store the ids and offsets of all pages
-int page_id[ITEM_NUM];
-int page_offset[ITEM_NUM];
+int page_id[PAGE_NUM];
+int page_offset[PAGE_NUM];
 
 //exchange arr[j] and arr[k]
 void exchange(int arr[], int j, int k){
@@ -26,29 +26,40 @@ int init_dbf(){
     if(!fp){
         printf("the file doesn't exist!\n");
     }
+
     //init the directory page
-    for(i=0;i<ITEM_NUM;i++){
+    for(i=0;i<PAGE_NUM;i++){
         //the i-th record is for the i-th page
         page_id[i] = i;
         //the i-th page stays at offset i
         page_offset[i] = i;
     }
-    printf("before shuffle\n");
+
     //shuffle the records and their offsets
-    for(i=0;i<ITEM_NUM/2;i++){
-        j = rand() % ITEM_NUM;
-        k = rand() % ITEM_NUM;
+    for(i=0;i<PAGE_NUM/2;i++){
+        j = rand() % PAGE_NUM;
+        k = rand() % PAGE_NUM;
         exchange(page_id, j, k);
     }
-    for(i=0;i<ITEM_NUM/2;i++){
-        j = rand() % ITEM_NUM;
-        k = rand() % ITEM_NUM;
+
+    for(i=0;i<PAGE_NUM/2;i++){
+        j = rand() % PAGE_NUM;
+        k = rand() % PAGE_NUM;
         exchange(page_offset, j, k);
     }
-    printf("before fwrite\n");
-    for(i=0;i<ITEM_NUM;i++){
+
+    //write (page_id, offset) tuples to file
+    for(i=0;i<PAGE_NUM;i++){
          fwrite(page_id+i, sizeof(int), 1, fp);
          fwrite(page_offset+i, sizeof(int), 1, fp);
+    }
+
+    //initialize the pages
+    for(i=0;i<PAGE_NUM;i++){
+        for(j=0;j<PAGE_SIZE;j++){
+            seek(page_id[i]);
+            fwrite(page_id+i, sizeof(int), PAGE_SIZE/sizeof(int), fp);
+        }
     }
     fclose(fp);
     return 0;

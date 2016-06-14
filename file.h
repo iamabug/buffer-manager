@@ -9,8 +9,8 @@ extern FILE* trf;
 FILE* open_file(char* filename);
 int close_file(FILE* fp);
 
-int read_page(int page_id, Frame *frm);
-int write_page(int page_id, Frame *frm);
+int read_page(int page_id, struct frame *frm);
+int write_page(int page_id, struct frame *frm);
 
 int seek(int page_id);
 

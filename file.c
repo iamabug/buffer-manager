@@ -20,13 +20,13 @@ int close_file(FILE* fp){
     return 1;
 }
 
-int read_page(int page_id, Frame *frm){
+int read_page(int page_id, struct frame *frm){
     seek(page_id);
     fread(frm->field, sizeof(char), FRAME_SIZE, dbf);
     return 1;
 }
 
-int write_page(int page_id, Frame *frm){
+int write_page(int page_id, struct frame *frm){
     seek(page_id);
     fwrite(frm->field, sizeof(char), FRAME_SIZE, dbf);
     return 1;
