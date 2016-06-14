@@ -22,7 +22,7 @@ int init_dbf(){
     int i, j, k;
 
     srand((unsigned int)time(NULL));
-    open_file(DBF_FILE);
+    fp = open_file(DBF_FILE);
     //init the directory page
     for(i=0;i<PAGE_NUM;i++){
         //the i-th record is for the i-th page
@@ -50,12 +50,11 @@ int init_dbf(){
          fwrite(page_offset+i, sizeof(int), 1, fp);
     }
 
-    printf("before write pages\n");
     //initialize the pages
     for(i=0;i<PAGE_NUM;i++){
-        for(j=0;j<PAGE_SIZE;j++){
-            seek(fp, page_id[i]);
-            fwrite(page_id+i, sizeof(int), PAGE_SIZE/sizeof(int), fp);
+        seek(fp, page_offset[i]);
+        for(j=0;j<PAGE_SIZE/sizeof(int);j++){
+            fwrite(page_id+i, sizeof(int), 1, fp);
         }
     }
     close_file(fp);

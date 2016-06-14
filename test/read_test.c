@@ -14,6 +14,12 @@ int main(){
     for(i=0;i<50;i++){
         printf("%x\n", temp[i]);
     }
+    printf("==================\n");
+    ret = fseek(fp, 500000*8+4096*0x37e70, SEEK_SET);
+    ret = fread(temp, sizeof(int), 50, fp);
+    for(i=0;i<50;i++){
+        printf("%x\n", temp[i]);
+    }
     fclose(fp);
     return 0;
 }

@@ -31,7 +31,6 @@ int write_page(FILE *fp, int page_id, struct frame *frm){
 
 int seek(FILE *fp, int page_id){
     int offset = page_id * PAGE_SIZE + DIR_SIZE;
-    printf("before fseek\n");
     if(fseek(fp, offset, SEEK_SET)){
         printf("fseek error\n");
         exit(0);
