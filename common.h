@@ -1,6 +1,9 @@
 #ifndef COMMON_H
 #define COMMON_H
 
+#include <stdio.h>
+#include <stdlib.h>
+
 #define FRAME_SIZE  4096
 #define PAGE_SIZE   4096
 #define BUF_SIZE    1024

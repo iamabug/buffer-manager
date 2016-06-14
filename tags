@@ -1,0 +1,14 @@
+BCB	buf.h	/^struct BCB {$/
+Minit	init.c	/^int main(){$/
+close_file	file.c	/^int close_file(FILE* fp){$/
+exchange	init.c	/^void exchange(int arr[], int j, int k){$/
+frame	common.h	/^struct frame {$/
+get_page_num	file.c	/^int get_page_num(){$/
+get_use	file.c	/^int get_use(int page_id){$/
+inc_page_num	file.c	/^int inc_page_num(int page_id){$/
+init_dbf	init.c	/^int init_dbf(){$/
+open_file	file.c	/^FILE* open_file(char* filename){$/
+read_page	file.c	/^int read_page(int page_id, struct frame *frm){$/
+seek	file.c	/^int seek(int page_id){$/
+set_use	file.c	/^int set_use(int page_id, int use_bit){$/
+write_page	file.c	/^int write_page(int page_id, struct frame *frm){$/

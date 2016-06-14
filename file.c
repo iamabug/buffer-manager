@@ -1,8 +1,5 @@
 #include "file.h"
 
-FILE* dbf = NULL;
-FILE* trf = NULL;
-
 FILE* open_file(char* filename){
     FILE *fp = fopen(filename, "wr");
     if(!fp){
@@ -20,21 +17,22 @@ int close_file(FILE* fp){
     return 1;
 }
 
-int read_page(int page_id, struct frame *frm){
-    seek(page_id);
-    fread(frm->field, sizeof(char), FRAME_SIZE, dbf);
+int read_page(FILE *fp, int page_id, struct frame *frm){
+    seek(fp, page_id);
+    fread(frm->field, sizeof(char), FRAME_SIZE, fp);
     return 1;
 }
 
-int write_page(int page_id, struct frame *frm){
-    seek(page_id);
-    fwrite(frm->field, sizeof(char), FRAME_SIZE, dbf);
+int write_page(FILE *fp, int page_id, struct frame *frm){
+    seek(fp, page_id);
+    fwrite(frm->field, sizeof(char), FRAME_SIZE, fp);
     return 1;
 }
 
-int seek(int page_id){
-    int offset = page_id * ITEM_SIZE + DIR_SIZE;
-    if(fseek(dbf, offset, SEEK_SET)){
+int seek(FILE *fp, int page_id){
+    int offset = page_id * PAGE_SIZE + DIR_SIZE;
+    printf("before fseek\n");
+    if(fseek(fp, offset, SEEK_SET)){
         printf("fseek error\n");
         exit(0);
     }
