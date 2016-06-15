@@ -1,8 +1,19 @@
-#include "buf.h"
+#ifndef BUF_H
+#define BUF_H
 
-struct *frame buffer[BUF_SIZE];
-struct BCB ptof[BUF_SIZE];
-int ftop[BUF_SIZE];
+extern struct frame buffer[BUF_SIZE];
+extern struct BCB *ptof[BUF_SIZE];
+extern int ftop[BUF_SIZE];
+
+//Map page_id to frame_id
+struct BCB {
+    int page_id;
+    int frame_id;
+    int latch;      //lock
+    int count;      //number of users
+    int dirty;      //if modified
+    struct BCB* next;
+};
 
 /*
  * @hash page_id into frame_id
@@ -17,8 +28,7 @@ int hash(int page_id);
 int fix_page(int page_id);
 
 /*
- * TODO
- * @do not know what it is for
+ * @create a new page in database file
  */
 int fix_new_page();
 
@@ -43,7 +53,7 @@ int select_victim();
  * @called when select_victim needs to replace a frame
  * @delete the BCB of the page
  */
-int remove_BCB(BCB *bcb, int page_id);
+int remove_BCB(struct BCB *bcb, int page_id);
 
 /*
  * TODO
@@ -72,3 +82,7 @@ void write_dirty();
 void print_frame(int frame_id);
 
 
+
+
+
+#endif

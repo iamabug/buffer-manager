@@ -2,6 +2,8 @@
 #define FILE_H
 
 #include "common.h"
+extern FILE *dbf;
+extern FILE *trf;
 
 FILE* open_file(char *filename);
 int close_file(FILE *fp);

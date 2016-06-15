@@ -17,6 +17,8 @@ struct frame {
     char field[FRAME_SIZE];
 };
 
-
-
+struct node {
+    int frame_id;
+    struct node *next;
+};
 #endif

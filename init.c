@@ -3,6 +3,7 @@
  */
 
 #include "init.h"
+#include "file.h"
 
 //two arrays to store the ids and offsets of all pages
 int page_id[PAGE_NUM];
@@ -18,11 +19,10 @@ void exchange(int arr[], int j, int k){
 
 int init_dbf(){
 
-    FILE *fp;
     int i, j, k;
 
     srand((unsigned int)time(NULL));
-    fp = open_file(DBF_FILE);
+    dbf = open_file(DBF_FILE);
     //init the directory page
     for(i=0;i<PAGE_NUM;i++){
         //the i-th record is for the i-th page
@@ -46,18 +46,18 @@ int init_dbf(){
 
     //write (page_id, offset) tuples to file
     for(i=0;i<PAGE_NUM;i++){
-         fwrite(page_id+i, sizeof(int), 1, fp);
-         fwrite(page_offset+i, sizeof(int), 1, fp);
+         fwrite(page_id+i, sizeof(int), 1, dbf);
+         fwrite(page_offset+i, sizeof(int), 1, dbf);
     }
 
     //initialize the pages
     for(i=0;i<PAGE_NUM;i++){
-        seek(fp, page_offset[i]);
+        seek(dbf, page_offset[i]);
         for(j=0;j<PAGE_SIZE/sizeof(int);j++){
-            fwrite(page_id+i, sizeof(int), 1, fp);
+            fwrite(page_id+i, sizeof(int), 1, dbf);
         }
     }
-    close_file(fp);
+    close_file(dbf);
     return 0;
 }
 

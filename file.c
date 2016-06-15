@@ -1,6 +1,8 @@
 #include "file.h"
 
-FILE* open_file(char* filename){
+FILE *dbf = NULL;
+FILE *trf = NULL;
+FILE *open_file(char* filename){
     FILE *fp = fopen(filename, "wr");
     if(!fp){
         printf("file open error : %s\n", filename);
