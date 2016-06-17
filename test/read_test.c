@@ -6,20 +6,16 @@ int main(){
     if(!fp)
         printf("file open error!\n");
     int ret = fseek(fp, 0, SEEK_SET);
-    if(ret)
-        perror("fseek");
-    ret = fread(temp, sizeof(int), 50, fp);
-    if(ret)
-        perror("fread");
+    ret = fread(temp, 50, 1, fp);
     for(i=0;i<50;i++){
         printf("%x\n", temp[i]);
     }
     printf("==================\n");
-    ret = fseek(fp, 500000*8+4096*0x37e70, SEEK_SET);
-    ret = fread(temp, sizeof(int), 50, fp);
-    for(i=0;i<50;i++){
-        printf("%x\n", temp[i]);
-    }
+    //ret = fseek(fp, 500000*8+4096*8550, SEEK_SET);
+    //ret = fread(temp, sizeof(int), 50, fp);
+    //for(i=0;i<50;i++){
+    //    printf("%x\n", temp[i]);
+    //}
     fclose(fp);
     return 0;
 }

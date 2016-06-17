@@ -13,7 +13,7 @@ int write_page(FILE *fp, int page_id, struct frame *frm);
 
 int seek(FILE* fp, int page_id);
 
-int inc_page_num();
+void inc_page_num();
 int get_page_num();
 
 int set_use(int page_id, int use_bit);

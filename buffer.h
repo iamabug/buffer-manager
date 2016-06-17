@@ -4,6 +4,8 @@
 extern struct frame buffer[BUF_SIZE];
 extern struct BCB *ptof[BUF_SIZE];
 extern int ftop[BUF_SIZE];
+extern int cost_plain, cost_lru;
+extern int page_num;
 
 //Map page_id to frame_id
 struct BCB {
@@ -56,6 +58,10 @@ int select_victim();
 int remove_BCB(struct BCB *bcb, int page_id);
 
 /*
+ * increament the number of page
+ */
+void inc_page_num();
+/*
  * TODO
  */
 void remove_lru_element(int frame_id);
@@ -79,7 +85,7 @@ void write_dirty();
 /*
  * @print the content of the frame
  */
-void print_frame(int frame_id);
+void print_frame(struct frame *frm);
 
 
 
